@@ -30,4 +30,9 @@
          should be either LOW (1) or HIGH (3).
     -->
     <integer name="config_vibration_supported_intensity_levels">3</integer>
+
+    <string name="kernel_name" translatable="false">N0kernel</string>
+    <string name="kernel_telegram" translatable="false">https://t.me/emhubf3</string>
+    <string name="maintainer_name" translatable="false">Aradhea</string>
+    <string name="maintainer_telegram" translatable="false">https://t.me/GengKapakAlioth</string>
 </resources>
