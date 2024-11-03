@@ -89,6 +89,11 @@ BOARD_BOOT_HEADER_VERSION := 3
 else
 BOARD_BOOT_HEADER_VERSION := 2
 endif
+TARGET_KERNEL_VERSION := 4.19
+TARGET_NO_KERNEL_OVERRIDE := true
+TARGET_PREBUILT_KERNEL := device/xiaomi/alioth-kernel/Image
+TARGET_PREBUILT_DTB := device/xiaomi/alioth-kernel/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := device/xiaomi/alioth-kernel/dtbo.img
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 loop.max_part=7 cgroup.memory=nokmem,nosocket reboot=panic_warm
@@ -96,9 +101,10 @@ BOARD_KERNEL_CMDLINE += androidboot.fstab_suffix=qcom
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8250
+PRODUCT_COPY_FILES += \
+    device/xiaomi/alioth-kernel/dtb.img:$(TARGET_COPY_OUT)/dtb.img
+
 
 # Lineage Health
 TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
@@ -179,7 +185,7 @@ VENDOR_SECURITY_PATCH := 2024-06-01
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-include device/lineage/sepolicy/libperfmgr/sepolicy.mk
+include device/derp/sepolicy/libperfmgr/sepolicy.mk
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
@@ -213,7 +219,7 @@ endif
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(COMMON_PATH)/framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    vendor/derp/config/device_framework_matrix.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 ifneq ($(TARGET_IS_TABLET),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest_phone.xml
