@@ -293,7 +293,7 @@ PRODUCT_PACKAGES += \
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay-derp
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
@@ -334,6 +334,14 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.xiaomi.rc \
     ueventd.qcom.rc
+
+# Kernel Headers
+PRODUCT_VENDOR_KERNEL_HEADERS := device/xiaomi/alioth-kernel/kernel-headers
+
+# Kernel
+LOCAL_KERNEL := device/xiaomi/alioth-kernel/Image
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 # Sensors
 PRODUCT_PACKAGES += \
